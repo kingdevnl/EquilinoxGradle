@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'maven'
+
+
+}
+
+group 'nl.kingdev'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs "libs"
+    }
+}
+
+dependencies {
+    compile gradleApi()
+    shade name: "java-decompiler"
+    shade name: "zip4j_1.3.2"
+
+}
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
+}
+
