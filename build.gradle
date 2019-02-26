@@ -27,6 +27,7 @@ dependencies {
     compile gradleApi()
     shade name: "java-decompiler"
     shade name: "zip4j_1.3.2"
+    shade 'com.cloudbees:diff4j:1.2'
 
 }
 jar {
